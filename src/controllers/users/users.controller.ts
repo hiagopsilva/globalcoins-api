@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common'
 import { UsersService } from 'src/controllers/users/users.service'
@@ -15,6 +16,7 @@ import { zodValidatorPipe } from 'src/utils/config/zodValidatorPipe'
 import { createUserValidator } from 'src/pipes/users/create-user.pipe'
 import { updateUserValidator } from 'src/pipes/users/update-user.pipe'
 import { z } from 'zod'
+import { AuthGuard } from '../auth/auth.guard'
 
 @Controller('users')
 export class UsersController {
@@ -29,12 +31,14 @@ export class UsersController {
     return await this.usersService.create(userPayloadSchema)
   }
 
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Get('list')
   async list() {
     return await this.usersService.list()
   }
 
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(new zodValidatorPipe(updateUserValidator))
   @Put('update')
@@ -44,6 +48,7 @@ export class UsersController {
     return await this.usersService.update(userPayloadSchema)
   }
 
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(new zodValidatorPipe(z.string()))
   @Delete('delete')
