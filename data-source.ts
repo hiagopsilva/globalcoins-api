@@ -15,7 +15,6 @@ export const dataSourceOptions: DataSourceOptions = {
   synchronize: false,
   logging: true,
   cache: false,
-  ssl: true,
 }
 
 const dataSource = new DataSource(dataSourceOptions)

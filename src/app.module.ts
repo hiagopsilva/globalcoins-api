@@ -11,12 +11,7 @@ import { envSchema } from './utils/config/env'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:
-        process.env.NODE_ENV === 'DEV'
-          ? '.env.dev'
-          : process.env.NODE_ENV === 'HML'
-            ? '.env.hml'
-            : '.env.prd',
+      envFilePath: '.env',
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
