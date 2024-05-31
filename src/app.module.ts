@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module'
 
 import { ConfigModule } from '@nestjs/config'
 import { DataSource } from 'typeorm'
+import { envSchema } from './utils/config/env'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DataSource } from 'typeorm'
           : process.env.NODE_ENV === 'HML'
             ? '.env.hml'
             : '.env.prd',
+      validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
     DatabaseModule,
