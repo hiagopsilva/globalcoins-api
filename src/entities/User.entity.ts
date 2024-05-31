@@ -1,7 +1,7 @@
 import { Entity, Column } from 'typeorm'
 
 @Entity()
-export class User {
+export class Users {
   @Column({ primary: true, generated: true })
   id: number
 
@@ -17,12 +17,12 @@ export class User {
   @Column({ nullable: false })
   password: string
 
-  @Column({ name: 'created_at' })
+  @Column({ name: 'created_at', default: new Date() })
   createdAt: Date
 
-  @Column({ name: 'updated_at' })
+  @Column({ name: 'updated_at', nullable: true })
   updatedAt: Date
 
-  @Column({ name: 'deleted_at' })
+  @Column({ name: 'deleted_at', nullable: true })
   deletedAt: Date
 }
