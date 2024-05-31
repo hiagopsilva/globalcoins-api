@@ -1,6 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-// import dataSource from '../../../data-source'
 import { ThrowHttpException } from 'src/utils/config/httpExceptions'
 import { Users } from 'src/entities/User.entity'
 import { enumMessageError } from 'src/utils/enums/message.error'
@@ -13,9 +12,7 @@ export class UsersService {
   constructor(
     @InjectRepository(Users)
     private readonly userRepository: Repository<Users>,
-  ) {
-    // this.userRepository = dataSource.getRepository(Users)
-  }
+  ) {}
 
   async create(userPayload: UserType.payload) {
     const user = await this.userRepository.findOneBy({
