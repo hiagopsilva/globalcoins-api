@@ -5,7 +5,9 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
 import * as dotenv from 'dotenv'
 import { Users } from 'src/entities/User.entity'
 
-dotenv.config({ path: process.env.NODE_ENV === 'PG' ? '.env.dev' : '.env' })
+dotenv.config({
+  path: process.env.NODE_ENV === 'LOCAL' ? '.env.local' : '.env',
+})
 
 @Injectable()
 export class DatabaseService implements TypeOrmOptionsFactory {

@@ -7,11 +7,9 @@ declare namespace UserType {
     confirmPassword: string
   }
 
-  export type item = {
+  export type item = Omit<payload, 'confirmPassword'> & {
     id: number
-    name: string
-    lastName: string
-    email: string
-    password: string
   }
+
+  export type updatePayload = Omit<item, 'password'>
 }
