@@ -6,4 +6,10 @@ export const enumMessageError = {
     DELETED: 'User deleted',
     ALREADY_DELETED: 'User already deleted',
   },
+  API: {
+    TOKEN: 'Token inválido.',
+  },
+  AUTH: {
+    INVALID_PASSWORD: 'Invalid password',
+  },
 }
