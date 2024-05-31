@@ -30,7 +30,7 @@ services:
       - "3333:3333"
     volumes:
       - .:/usr/src/app/
-        – /node_module/
+      - /usr/src/app/node_modules
     networks:
       - globalcoins-api_default
 

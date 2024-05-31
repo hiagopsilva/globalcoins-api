@@ -7,15 +7,17 @@ import { DatabaseModule } from './database/database.module'
 import { ConfigModule } from '@nestjs/config'
 import { DataSource } from 'typeorm'
 import { envSchema } from './utils/config/env'
+import { UsersModule } from './controllers/users/users.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: process.env.NODE_ENV === 'LOCAL' ? '.env.local' : '.env',
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
     DatabaseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
