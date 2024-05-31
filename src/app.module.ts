@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config'
 import { DataSource } from 'typeorm'
 import { envSchema } from './utils/config/env'
 import { UsersModule } from './controllers/users/users.module'
+import { AuthModule } from './controllers/auth/auth.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './controllers/users/users.module'
     }),
     DatabaseModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
