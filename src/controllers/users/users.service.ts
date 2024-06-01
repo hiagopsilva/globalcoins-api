@@ -59,6 +59,34 @@ export class UsersService {
     return await this.userRepository.findBy({ id: userPayload.id })
   }
 
+  async changePassword(userPayload: UserType.changePasswordPayload) {
+    const user = await this.userRepository.findOneBy({ id: userPayload.id })
+
+    if (!user) {
+      ThrowHttpException(enumMessageError.USER.NOT_FOUND, HttpStatus.NOT_FOUND)
+    }
+
+    if (userPayload.password !== userPayload.newPassword) {
+      ThrowHttpException(
+        enumMessageError.USER.PASSWORD_IS_NOT_SAME,
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+
+    const userUpdated = await this.userRepository.update(userPayload.id, {
+      password: userPayload.newPassword,
+    })
+
+    if (!userUpdated) {
+      ThrowHttpException(
+        enumMessageError.USER.NOT_UPDATED,
+        HttpStatus.NOT_FOUND,
+      )
+    }
+
+    return await this.userRepository.findBy({ id: userPayload.id })
+  }
+
   async delete(userId: number) {
     const user = await this.userRepository.findOneBy({
       id: userId,

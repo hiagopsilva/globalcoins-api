@@ -12,4 +12,8 @@ declare namespace UserType {
   }
 
   export type updatePayload = Omit<item, 'password'>
+
+  export type changePasswordPayload = Pick<item, 'id' | 'password'> & {
+    newPassword: string
+  }
 }
