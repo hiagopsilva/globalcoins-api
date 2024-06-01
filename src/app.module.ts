@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm'
 import { envSchema } from './utils/config/env'
 import { UsersModule } from './controllers/users/users.module'
 import { AuthModule } from './controllers/auth/auth.module'
+import { CoinsModule } from './controllers/coins/coins.module'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from './controllers/auth/auth.module'
     DatabaseModule,
     UsersModule,
     AuthModule,
+    CoinsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
