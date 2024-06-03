@@ -19,4 +19,9 @@ declare namespace CoinType {
     days: number
     coin: string
   }
+
+  type FavoritePayload = {
+    coin: string
+    userId: number
+  }
 }

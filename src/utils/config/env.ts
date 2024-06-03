@@ -16,6 +16,7 @@ export const envSchema = z.object({
   PORT: z.coerce.number().optional().default(3333),
   JWT_TOKEN: z.string(),
   API_COINS: z.string(),
+  DB_URL_MONGO: z.string(),
 })
 
 export type Env = z.infer<typeof envSchema>
