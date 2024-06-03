@@ -52,7 +52,7 @@ export class UsersService {
     if (!userUpdated) {
       ThrowHttpException(
         enumMessageError.USER.NOT_UPDATED,
-        HttpStatus.NOT_FOUND,
+        HttpStatus.UNPROCESSABLE_ENTITY,
       )
     }
 
