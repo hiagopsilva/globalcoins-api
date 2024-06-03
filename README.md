@@ -1,73 +1,56 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Backend do Projeto
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este é o backend do projeto, desenvolvido com Nest.js e TypeScript. Ele usa Docker para a contêinerização das aplicações PostgreSQL (banco relacional) e MongoDB (banco não relacional). O Swagger é utilizado para a documentação da API e o TypeORM é utilizado como ORM para interagir com os bancos de dados.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Configuração do Ambiente
 
-## Description
+Antes de começar, certifique-se de ter o Docker e o Docker Compose instalados na sua máquina.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. Clone este repositório:
 
-## Installation
+    ```
+    git clone https://github.com/hiagopsilva/globalcoins-api.git
+    ```
 
-```bash
-$ yarn install
-```
+2. Navegue até o diretório do projeto:
 
-## Running the app
+    ```
+    cd globalcoins-api
+    ```
 
-```bash
-# development
-$ yarn run start
+3. Crie um arquivo `.env` com as variáveis de ambiente necessárias para a configuração do projeto. (Deixei o `env.example` para facilitar esse passo a passo).
 
-# watch mode
-$ yarn run start:dev
+4. Inicie os contêineres do Docker usando o Docker Compose:
 
-# production mode
-$ yarn run start:prod
-```
+    ```
+    docker-compose up --build
+    ```
 
-## Test
+5. Execute as migrations do TypeORM para criar as tabelas necessárias nos bancos de dados:
+    ```
+      yarn migration:run
+    ```
+    ou
 
-```bash
-# unit tests
-$ yarn run test
+    ```
+    export NODE_ENV=DEV && typeorm-ts-node-esm migration:run -d ./data-source.ts
+    ```
 
-# e2e tests
-$ yarn run test:e2e
+## Acessando o Swagger
 
-# test coverage
-$ yarn run test:cov
-```
+Após iniciar os contêineres do Docker e executar as migrações, você pode acessar a documentação da API Swagger:
 
-## Support
+1. Abra seu navegador e acesse [http://localhost:3333/api](http://localhost:3333/api).
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Funcionalidades
 
-## Stay in touch
+O backend inclui as seguintes funcionalidades:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- CRUD do usuário.
+- Visualizar as 10 moedas.
+- Favoritar moedas.
+- Visualizar o histórico de cotação de moedas.
 
-## License
+## Licença
 
-Nest is [MIT licensed](LICENSE).
+Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
