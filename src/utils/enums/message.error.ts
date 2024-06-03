@@ -14,7 +14,4 @@ export const enumMessageError = {
   AUTH: {
     INVALID_PASSWORD: 'Invalid password',
   },
-  COIN: {
-    FAVORITE_ALREADY_EXISTS: 'Favorite already exists',
-  },
 }

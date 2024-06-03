@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   UseGuards,
   UsePipes,
 } from '@nestjs/common'
@@ -21,8 +22,8 @@ export class CoinsController {
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Get('/list')
-  async list() {
-    return this.coinsService.list()
+  async list(@Req() request: ApiType.Request) {
+    return this.coinsService.list(request.user.sub)
   }
 
   @UseGuards(AuthGuard)

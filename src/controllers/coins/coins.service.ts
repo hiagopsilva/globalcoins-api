@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { Favorite } from 'src/schemas/favorites.schema'
-import { ThrowHttpException } from 'src/utils/config/httpExceptions'
-import { enumMessageError } from 'src/utils/enums/message.error'
+import { enumMessageSuccess } from 'src/utils/enums/message.success'
 
 @Injectable()
 export class CoinsService {
@@ -11,14 +10,23 @@ export class CoinsService {
     @InjectModel(Favorite.name) private favoriteModel: Model<Favorite>,
   ) {}
 
-  async list() {
+  async list(userId: number) {
     const response = await fetch(
       `${process.env.API_COINS}/last/USD-BRL,EUR-BRL,BTC-BRL,CAD-BRL,ARS-BRL,CHF-BRL,AUD-BRL,CNY-BRL,GBP-BRL,LTC-BRL`,
     )
 
-    const listCoins = Object.values(await response.json())
+    const responseFavorites = await this.favoriteModel.find({ userId }).exec()
 
-    return listCoins
+    const listCoins: CoinType.Item[] = Object.values(await response.json())
+
+    return listCoins.map((item) => {
+      return {
+        ...item,
+        isFavorite: responseFavorites.some(
+          (favorite) => favorite.coin === `${item.code}-${item.codein}`,
+        ),
+      }
+    })
   }
 
   async historic(payload: CoinType.GetHistoric) {
@@ -49,14 +57,19 @@ export class CoinsService {
       .exec()
 
     if (favoriteAlreadyExists) {
-      ThrowHttpException(enumMessageError.COIN.FAVORITE_ALREADY_EXISTS, 400)
+      const favorite = await this.favoriteModel.findOne({
+        userId: payload.userId,
+        coin: payload.coin,
+      })
+
+      await this.favoriteModel.findByIdAndDelete(favorite._id)
+    } else {
+      await this.favoriteModel.create({
+        userId: payload.userId,
+        coin: payload.coin,
+      })
     }
 
-    const favorite = await this.favoriteModel.create({
-      userId: payload.userId,
-      coin: payload.coin,
-    })
-
-    return favorite
+    return { message: enumMessageSuccess.COIN.FAVORITE }
   }
 }
