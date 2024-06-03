@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-
-// import { dataSourceOptions } from '../../data-source'
+import { MongooseModule } from '@nestjs/mongoose'
 
 import { DatabaseService } from './database.service'
 
@@ -13,14 +12,11 @@ dotenv.config({
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   ...dataSourceOptions,
-    //   autoLoadEntities: true,
-    // }),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseService,
       inject: [DatabaseService],
     }),
+    MongooseModule.forRoot(process.env.DB_URL_MONGO),
   ],
   controllers: [],
   providers: [],

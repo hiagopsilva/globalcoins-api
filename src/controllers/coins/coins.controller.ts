@@ -12,6 +12,7 @@ import { CoinsService } from './coins.service'
 import { AuthGuard } from '../auth/auth.guard'
 import { zodValidatorPipe } from 'src/utils/config/zodValidatorPipe'
 import { getHistoricValidator } from 'src/pipes/coins/get-historic.pipe'
+import { FavoriteValidator } from 'src/pipes/coins/favorite.pipe'
 
 @Controller('coins')
 export class CoinsController {
@@ -30,5 +31,13 @@ export class CoinsController {
   @Post('/historic')
   async historic(@Body() getHistoricPayload: CoinType.GetHistoric) {
     return this.coinsService.historic(getHistoricPayload)
+  }
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new zodValidatorPipe(FavoriteValidator))
+  @Post('/favorite')
+  async favorite(@Body() favoritePayload: CoinType.FavoritePayload) {
+    return this.coinsService.favorite(favoritePayload)
   }
 }
