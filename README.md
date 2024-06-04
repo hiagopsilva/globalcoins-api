@@ -1,3 +1,8 @@
+<div style="text-align:center">
+  <img src="./assets/logo.png" alt="Descrição da imagem" width="100" style=""/>
+  <h3>Global Coins</h3>
+</div>
+
 # Backend do Projeto
 
 Este é o backend do projeto, desenvolvido com Nest.js e TypeScript. Ele usa Docker para a contêinerização das aplicações PostgreSQL (banco relacional) e MongoDB (banco não relacional). O Swagger é utilizado para a documentação da API e o TypeORM é utilizado como ORM para interagir com os bancos de dados.
