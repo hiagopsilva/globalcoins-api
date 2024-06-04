@@ -12,6 +12,7 @@ import { AuthModule } from './controllers/auth/auth.module'
 import { CoinsModule } from './controllers/coins/coins.module'
 
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     DatabaseModule,
     UsersModule,
     AuthModule,
