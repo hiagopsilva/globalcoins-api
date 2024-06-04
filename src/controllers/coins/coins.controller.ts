@@ -75,4 +75,10 @@ export class CoinsController {
   async favorite(@Body() favoritePayload: CoinType.FavoritePayload) {
     return this.coinsService.favorite(favoritePayload)
   }
+
+  // @Get('start-websocket')
+  // startWebSocket() {
+  //   this.appGateway.emitUpdate()
+  //   return { success: true }
+  // }
 }
